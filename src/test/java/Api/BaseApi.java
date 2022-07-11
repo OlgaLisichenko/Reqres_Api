@@ -31,6 +31,7 @@ public class BaseApi {
 
     protected Response postWithStatus201(String body, String uri) {
         return given().
+                        contentType("application/json").
                         body(body).
                 when().
                         post(reader.getBaseUrl() + uri).
@@ -42,6 +43,7 @@ public class BaseApi {
 
     protected Response put(String body, String uri) {
         return given().
+                        contentType("application/json").
                         body(body).
                 when().
                         put(reader.getBaseUrl() + uri).
@@ -53,6 +55,7 @@ public class BaseApi {
 
     protected Response patch(String body, String uri) {
         return given().
+                        contentType("application/json").
                         body(body).
                 when().
                         patch(reader.getBaseUrl() + uri).
@@ -73,6 +76,7 @@ public class BaseApi {
 
     protected Response postWithStatus200(String body, String uri) {
         return given().
+                        contentType("application/json").
                         body(body).
                 when().
                         post(reader.getBaseUrl() + uri).
@@ -84,6 +88,7 @@ public class BaseApi {
 
     protected Response postWithStatus400(String body, String uri) {
         return given().
+                        contentType("application/json").
                         body(body).
                 when().
                         post(reader.getBaseUrl() + uri).
