@@ -5,6 +5,12 @@ import org.testng.annotations.Test;
 
 public class ReqresApiTest extends BaseApiTest {
 
+    UpdatedUser updatedUser = UpdatedUser.
+            builder().
+            name("morpheus").
+            job("zion resident").
+            build();
+
     @Test
     public void getListUsers() {
         ListUsers listUsers = reqresApi.getUsersList();
@@ -43,38 +49,20 @@ public class ReqresApiTest extends BaseApiTest {
 
     @Test
     public void postCreate() {
-        CreatedUser createdUser = CreatedUser.
-                builder().
-                name("morpheus").
-                job("leader").
-                build();
-
-        reqresApi.create(createdUser);
-        System.out.println(createdUser);
+        reqresApi.create(updatedUser);
+        System.out.println(updatedUser);
     }
 
     @Test
     public void putUpdate() {
-        CreatedUser createdUser = CreatedUser.
-                builder().
-                name("morpheus").
-                job("zion resident").
-                build();
-
-        reqresApi.put(createdUser);
-        System.out.println(createdUser);
+        reqresApi.put(updatedUser);
+        System.out.println(updatedUser);
     }
 
     @Test
     public void patchUpdate() {
-        CreatedUser createdUser = CreatedUser.
-                builder().
-                name("morpheus").
-                job("zion resident").
-                build();
-
-        reqresApi.patch(createdUser);
-        System.out.println(createdUser);
+        reqresApi.patch(updatedUser);
+        System.out.println(updatedUser);
     }
 
     @Test

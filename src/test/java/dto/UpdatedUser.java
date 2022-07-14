@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CreatedUser {
+public class UpdatedUser {
     @Expose
     String name;
     @Expose

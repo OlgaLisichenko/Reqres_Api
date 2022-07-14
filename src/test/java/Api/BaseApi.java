@@ -9,27 +9,17 @@ public class BaseApi {
 
     PropertyReader reader = new PropertyReader();
 
-    protected String get(String uri) {
+    protected Response get(String uri, int statusCode) {
         return given().
                 when().
                         get(reader.getBaseUrl() + uri).
                 then().
                         log().all().
-                        statusCode(200).
-                        extract().body().asString();
+                        statusCode(statusCode).
+                        extract().response();
     }
 
-    protected String getWithStatus404(String uri) {
-        return given().
-                when().
-                        get(reader.getBaseUrl() + uri).
-                then().
-                        log().all().
-                        statusCode(404).
-                        extract().body().asString();
-    }
-
-    protected Response postWithStatus201(String body, String uri) {
+    protected Response post(String body, String uri, int statusCode) {
         return given().
                         contentType("application/json").
                         body(body).
@@ -37,7 +27,7 @@ public class BaseApi {
                         post(reader.getBaseUrl() + uri).
                 then().
                         log().all().
-                        statusCode(201).
+                        statusCode(statusCode).
                         extract().response();
     }
 
@@ -72,29 +62,5 @@ public class BaseApi {
                  then().
                         log().all().
                         statusCode(204);
-    }
-
-    protected Response postWithStatus200(String body, String uri) {
-        return given().
-                        contentType("application/json").
-                        body(body).
-                when().
-                        post(reader.getBaseUrl() + uri).
-                then().
-                        log().all().
-                        statusCode(200).
-                        extract().response();
-    }
-
-    protected Response postWithStatus400(String body, String uri) {
-        return given().
-                        contentType("application/json").
-                        body(body).
-                when().
-                        post(reader.getBaseUrl() + uri).
-                then().
-                        log().all().
-                        statusCode(400).
-                        extract().response();
     }
 }
