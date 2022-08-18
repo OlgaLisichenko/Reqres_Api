@@ -31,7 +31,7 @@ public class BaseApi {
                         extract().response();
     }
 
-    protected Response put(String body, String uri) {
+    protected Response put(String body, String uri, int statusCode) {
         return given().
                         contentType("application/json").
                         body(body).
@@ -39,11 +39,11 @@ public class BaseApi {
                         put(reader.getBaseUrl() + uri).
                 then().
                         log().all().
-                        statusCode(200).
+                        statusCode(statusCode).
                         extract().response();
     }
 
-    protected Response patch(String body, String uri) {
+    protected Response patch(String body, String uri, int statusCode) {
         return given().
                         contentType("application/json").
                         body(body).
@@ -51,16 +51,16 @@ public class BaseApi {
                         patch(reader.getBaseUrl() + uri).
                 then().
                         log().all().
-                        statusCode(200).
+                        statusCode(statusCode).
                         extract().response();
     }
 
-    protected void delete(String uri) {
+    protected void delete(String uri, int statusCode) {
                  given().
                  when().
                         delete(reader.getBaseUrl() + uri).
                  then().
                         log().all().
-                        statusCode(204);
+                        statusCode(statusCode);
     }
 }

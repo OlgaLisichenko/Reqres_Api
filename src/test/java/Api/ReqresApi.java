@@ -2,81 +2,71 @@ package Api;
 
 import com.google.gson.Gson;
 import dto.*;
+import utils.TestConstants;
 
-public class ReqresApi extends BaseApi {
+import static java.net.HttpURLConnection.*;
+
+public class ReqresApi extends BaseApi implements TestConstants {
 
     Gson gson = new Gson();
 
-    int statusCodeOk = 200;
-    int statusCodeCreated = 201;
-    int statusCodeBadRequest = 400;
-    int statusCodeNotFound = 404;
-
-    int userId = 2;
-    int numberNotFound = 23;
-
-    String uriUser = "user";
-    String uriResource = "unknown";
-    String uriRegister = "register";
-    String uriLogin = "login";
-
     public ListUsers getUsersList() {
-        return gson.fromJson(get(uriUser + "?page=2", statusCodeOk).asString(), ListUsers.class);
+        return gson.fromJson(get(URI_USER + "?page=2", HTTP_OK).asString(), ListUsers.class);
     }
 
     public User getSingleUser() {
-        return gson.fromJson(get(uriUser + "/" + userId, statusCodeOk).asString(), User.class);
+        return gson.fromJson(get(URI_USER + "/" + USER_ID, HTTP_OK).asString(), User.class);
     }
 
     public User getSingleUserNotFound() {
-        return gson.fromJson(get(uriUser + "/" + numberNotFound, statusCodeNotFound).asString(), User.class);
+        return gson.fromJson(get(URI_USER + "/" + NUMBER_NOT_FOUND, HTTP_NOT_FOUND).asString(), User.class);
     }
 
     public ListResource getResourceList() {
-        return gson.fromJson(get(uriResource, statusCodeOk).asString(), ListResource.class);
+        return gson.fromJson(get(URI_RESOURCE, HTTP_OK).asString(), ListResource.class);
     }
 
     public Resource getSingleResource() {
-        return gson.fromJson(get(uriResource + "/" + userId, statusCodeOk).asString(), Resource.class);
+        return gson.fromJson(get(URI_RESOURCE + "/" + USER_ID, HTTP_OK).asString(), Resource.class);
     }
 
     public Resource getSingleResourceNotFound() {
-        return gson.fromJson(get(uriResource + "/" + numberNotFound, statusCodeNotFound).asString(), Resource.class);
+        return gson.fromJson(get(URI_RESOURCE + "/" + NUMBER_NOT_FOUND, HTTP_NOT_FOUND).asString(), Resource.class);
     }
 
     public void create(UpdatedUser updatedUser) {
-        post(gson.toJson(updatedUser), uriUser, statusCodeCreated);
+        post(gson.toJson(updatedUser), URI_USER, HTTP_CREATED);
     }
 
     public void put(UpdatedUser updatedUser) {
-        put(gson.toJson(updatedUser), uriUser + "/" + userId);
+        put(gson.toJson(updatedUser), URI_USER + "/" + USER_ID, HTTP_OK);
     }
 
     public void patch(UpdatedUser updatedUser) {
-        patch(gson.toJson(updatedUser), uriUser + "/" + userId);
+        patch(gson.toJson(updatedUser), URI_USER + "/" + USER_ID, HTTP_OK);
     }
 
     public void delete() {
-        delete(uriUser + "/" + userId);
+        delete(URI_USER + "/" + USER_ID, HTTP_NO_CONTENT);
     }
 
     public void createRegisterSuccessful(RegisterLogin registerLogin) {
-        post(gson.toJson(registerLogin), uriRegister, statusCodeOk);
+        post(gson.toJson(registerLogin), URI_REGISTER, HTTP_OK);
     }
 
     public void createRegisterUnsuccessful(RegisterLogin registerLogin) {
-        post(gson.toJson(registerLogin), uriRegister, statusCodeBadRequest);
+        post(gson.toJson(registerLogin), URI_REGISTER, HTTP_BAD_REQUEST);
     }
 
     public void createLoginSuccessful(RegisterLogin registerLogin) {
-        post(gson.toJson(registerLogin), uriLogin, statusCodeOk);
+        post(gson.toJson(registerLogin), URI_LOGIN, HTTP_OK);
     }
 
     public void createLoginUnsuccessful(RegisterLogin registerLogin) {
-        post(gson.toJson(registerLogin), uriLogin, statusCodeBadRequest);
+        post(gson.toJson(registerLogin), URI_LOGIN, HTTP_BAD_REQUEST);
     }
 
     public ListUsers getDelayedResponse() {
-        return gson.fromJson(get(uriUser + "?delay=3", statusCodeOk).asString(), ListUsers.class);
+        return gson.fromJson(get(URI_USER + "?delay=3", HTTP_OK).asString(), ListUsers.class);
     }
 }
